@@ -4,10 +4,11 @@ import {
   ResponseType,
   AuthRequestConfig,
 } from "expo-auth-session";
-import Constants from "expo-constants";
-Constants.manifest.originalFullName = "@fgasulay/food-run";
-const { AUTH_APP_ID, AUTH_APP_SECRET, AUTH_DISCOVERY_URL } =
-  Constants.manifest.extra.env;
+import ExpoConstants from "expo-constants";
+import { Constants } from "./Constants";
+
+ExpoConstants.manifest.originalFullName = "@fgasulay/food-run";
+const { AUTH_DISCOVERY_URL, AUTH_APP_SECRET, AUTH_APP_ID } = Constants;
 
 export const azureConfig: AuthRequestConfig = {
   clientId: AUTH_APP_ID,

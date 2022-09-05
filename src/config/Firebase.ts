@@ -1,7 +1,7 @@
 import { FirebaseOptions, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
-import Constants from "expo-constants";
+import { Constants } from "./Constants";
 const {
   FIREBASE_API_KEY,
   FIREBASE_AUTH_DOMAIN,
@@ -11,7 +11,7 @@ const {
   FIREBASE_APP_ID,
   FIREBASE_MEASUREMENT_ID,
   FIREBASE_DATABASE_URL,
-} = Constants.manifest.extra.env;
+} = Constants;
 // Initialize Firebase
 const firebaseConfig: FirebaseOptions = {
   apiKey: FIREBASE_API_KEY,

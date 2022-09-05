@@ -13,6 +13,7 @@ const {
   AUTH_APP_ID,
   AUTH_APP_SECRET,
   AUTH_DISCOVERY_URL,
+  BACKEND_BASE_URL,
 } = process.env;
 
 /**
@@ -36,6 +37,7 @@ module.exports = ({ config }) => {
         AUTH_APP_ID,
         AUTH_APP_SECRET,
         AUTH_DISCOVERY_URL,
+        BACKEND_BASE_URL,
       },
     },
   });

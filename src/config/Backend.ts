@@ -1,8 +1,8 @@
 import axios from "axios";
-import Constants from "expo-constants";
+import { Constants } from "./Constants";
 
 export const backend = axios.create({
-  baseURL: Constants.manifest.env.BACKEND_BASE_URL,
+  baseURL: Constants.BACKEND_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
