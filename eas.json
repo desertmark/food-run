@@ -1,0 +1,47 @@
+{
+  "cli": {
+    "version": ">= 2.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "development",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "FIREBASE_AUTH_DOMAIN": "inno-lunch.firebaseapp.com",
+        "FIREBASE_PROJECT_ID": "inno-lunch",
+        "FIREBASE_STORAGE_BUCKET": "inno-lunch.appspot.com",
+        "FIREBASE_MESSAGING_SENDERID": "475476904888",
+        "FIREBASE_MEASUREMENT_ID": "G-GZGSXF7BLS",
+        "FIREBASE_DATABASE_URL": "https://inno-lunch-default-rtdb.europe-west1.firebasedatabase.app",
+        "AUTH_DISCOVERY_URL": "https://login.microsoftonline.com/common/v2.0",
+        "BACKEND_BASE_URL": "http://192.168.1.134:3001"
+      }
+    },
+    "preview": {
+      "channel": "preview",
+      "developmentClient": false,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "FIREBASE_AUTH_DOMAIN": "inno-lunch.firebaseapp.com",
+        "FIREBASE_PROJECT_ID": "inno-lunch",
+        "FIREBASE_STORAGE_BUCKET": "inno-lunch.appspot.com",
+        "FIREBASE_MESSAGING_SENDERID": "475476904888",
+        "FIREBASE_MEASUREMENT_ID": "G-GZGSXF7BLS",
+        "FIREBASE_DATABASE_URL": "https://inno-lunch-default-rtdb.europe-west1.firebasedatabase.app",
+        "AUTH_DISCOVERY_URL": "https://login.microsoftonline.com/common/v2.0",
+        "BACKEND_BASE_URL": "http://192.168.1.134:3001"
+      }
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {}
+  }
+}
