@@ -61,11 +61,10 @@ export const FirebaseProvider: FC<PropsWithChildren<unknown>> = ({
    * Login gets a custom token from the backend with the given active directory
    * login result to use it to sign in firebase.
    */
-  const login = async ({ sub, name, email }: LoginToAzureResult) => {
-    const { token } = await postToken({
-      uid: sub,
-      claims: { displayName: name, email, id: sub },
-    });
+  const login = async ({
+    tokenResponse: { accessToken },
+  }: LoginToAzureResult) => {
+    const { token } = await postToken({ accessToken });
     return await signInWithCustomToken(firebaseAuth, token);
   };
 

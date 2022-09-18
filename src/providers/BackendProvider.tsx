@@ -20,13 +20,18 @@ export const BackendProvider: FC<PropsWithChildren<unknown>> = ({
 }) => {
   const postToken = async (request: PostTokenRequest) => {
     try {
-      const res = await backend.post<PostTokenResponse>("/token", request);
+      const res = await backend.post<PostTokenResponse>(
+        "/token",
+        {},
+        {
+          headers: {
+            authorization: `Bearer ${request.accessToken}`,
+          },
+        }
+      );
       return res.data;
     } catch (error) {
-      console.error(
-        "Failed backend.postToken",
-        JSON.stringify({ request, error })
-      );
+      console.error("Failed backend.postToken", JSON.stringify({ error }));
       throw error;
     }
   };

@@ -9,12 +9,7 @@ export const backend = axios.create({
 });
 
 export interface PostTokenRequest {
-  uid: string;
-  claims: {
-    id: string;
-    displayName: string;
-    email: string;
-  };
+  accessToken: string;
 }
 
 export interface PostTokenResponse {

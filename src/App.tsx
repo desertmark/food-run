@@ -12,6 +12,6 @@ const App: FC<unknown> = () => {
 export default () => (
   <Providers>
     <App />
-    <StatusBar />
+    <StatusBar style="dark" />
   </Providers>
 );
