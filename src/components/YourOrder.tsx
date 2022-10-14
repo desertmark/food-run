@@ -50,7 +50,6 @@ export const YourOrder: FC<YourOrderProps> = ({
         style={{ margin: 8, padding: 32 }}
       >
         <Flex center>
-          <Text></Text>
           <Chip label="Your order today" color="primary" />
         </Flex>
         <Divider style={{ marginVertical: 16 }} />
