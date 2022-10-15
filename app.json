@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "food-run",
+    "name": "Food Run",
     "slug": "food-run",
     "version": "1.0.1",
     "entryPoint": "./src/index.ts",

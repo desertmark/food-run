@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { View, Image, useColorScheme } from "react-native";
 import { NavigationContainer, NavigationProp } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -18,6 +18,7 @@ import { HomeScreen } from "./HomeScreen";
 import { LoginScreen } from "./LoginScreen";
 import { OrderScreen } from "./OrderScreen";
 import { useMainColor, useOnColor } from "../config/Theme";
+import { useApp } from "../providers/AppProvider";
 
 const Stack = createNativeStackNavigator();
 const HomeTab = createBottomTabNavigator();
@@ -41,6 +42,10 @@ export interface ScreenNavigation {
 
 export const Navigation: FC<unknown> = () => {
   const { isAuthenticated } = useAuth();
+  const { setStatusBarStyle } = useApp();
+  useEffect(() => {
+    setStatusBarStyle(isAuthenticated ? "light" : "dark");
+  }, [isAuthenticated]);
   return (
     <NavigationContainer>
       {isAuthenticated ? <PrivateStack /> : <PublicStack />}
