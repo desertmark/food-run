@@ -1,5 +1,5 @@
 import { FirebaseOptions, initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, OAuthProvider } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import { Constants } from "./Constants";
 const {
@@ -27,3 +27,15 @@ const firebaseConfig: FirebaseOptions = {
 export const firebaseApp = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseApp);
 export const firebaseDatabase = getDatabase(firebaseApp);
+
+export const buildAuthProvider = () => {
+  const provider = new OAuthProvider("microsoft.com");
+  provider.addScope("email");
+  provider.addScope("openid");
+  provider.addScope("profile");
+  provider.setCustomParameters({
+    prompt: "login",
+    tenant: "common",
+  });
+  return provider;
+};

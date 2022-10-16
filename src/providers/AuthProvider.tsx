@@ -8,9 +8,11 @@ import {
 } from "react";
 
 import { useFirebase } from "./FirebaseProvider";
-import { firebaseAuth } from "../config/Firebase";
+import { buildAuthProvider, firebaseAuth } from "../config/Firebase";
 import { useApp } from "./AppProvider";
 import { LoginToAzureResult, useLoginToAzure } from "../hooks/useLoginToAzure";
+import { Platform } from "react-native";
+import { signInWithRedirect } from "firebase/auth";
 
 export interface User {
   id: string;
@@ -83,7 +85,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
     }
   };
 
-  const login = async () => {
+  const mobileLogin = async () => {
     try {
       setGlobalLoading!(true);
       const azureResult = await loginToAzure();
@@ -99,6 +101,20 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
     } finally {
       setGlobalLoading!(false);
     }
+  };
+
+  const webLogin = async () => {
+    const provider = buildAuthProvider();
+    signInWithRedirect(firebase.auth, provider);
+  };
+
+  const login = async () => {
+    const platformLogin = Platform.select({
+      web: webLogin,
+      ios: mobileLogin,
+      android: mobileLogin,
+    });
+    await platformLogin();
   };
 
   const logout = () => {

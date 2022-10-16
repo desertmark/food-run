@@ -26,6 +26,7 @@ export const useLoginToAzure = () => {
   const [, , promptAsync] = useAuthRequest(azureConfig, discovery);
 
   const loginToAzure = async (): Promise<LoginToAzureResult> => {
+    console.log("azure", azureConfig);
     const result = await promptAsync({ useProxy: false });
     switch (result.type) {
       case "success":
