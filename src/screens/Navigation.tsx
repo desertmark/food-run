@@ -1,6 +1,10 @@
 import { FC, useEffect } from "react";
-import { View, Image, useColorScheme } from "react-native";
-import { NavigationContainer, NavigationProp } from "@react-navigation/native";
+import { View, Image, useColorScheme, BackHandler } from "react-native";
+import {
+  NavigationContainer,
+  NavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
@@ -19,6 +23,7 @@ import { LoginScreen } from "./LoginScreen";
 import { OrderScreen } from "./OrderScreen";
 import { useMainColor, useOnColor } from "../config/Theme";
 import { useApp } from "../providers/AppProvider";
+import { useHub, useHubBackHandler } from "../components/Hub";
 
 const Stack = createNativeStackNavigator();
 const HomeTab = createBottomTabNavigator();
@@ -113,6 +118,7 @@ const PrivateStack = () => {
 const HomeNavigation = () => {
   const primary = useMainColor("primary");
   const secondary = useMainColor("secondary");
+
   return (
     <HomeTab.Navigator
       screenOptions={{
@@ -122,7 +128,7 @@ const HomeNavigation = () => {
       }}
     >
       <HomeTab.Screen
-        name="HomeTab"
+        name={Screens.Home}
         component={HomeScreen}
         options={{
           headerShown: false,
@@ -130,8 +136,8 @@ const HomeNavigation = () => {
         }}
       />
       <HomeTab.Screen
-        name="Orders"
-        component={OrderScreen}
+        name={Screens.Orders}
+        component={OrderNavigator}
         options={{
           headerShown: false,
           title: "Make my order",
@@ -142,5 +148,18 @@ const HomeNavigation = () => {
         }}
       />
     </HomeTab.Navigator>
+  );
+};
+// Woraround: Wrapper navigator to make back handler work on orders screen.
+const OrderNavigator: FC<unknown> = () => {
+  useHubBackHandler();
+  return (
+    <Stack.Navigator initialRouteName={Screens.Orders}>
+      <Stack.Screen
+        name={Screens.Orders}
+        component={OrderScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 };

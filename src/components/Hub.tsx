@@ -1,4 +1,5 @@
 import { Flex, Text, Button } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/native";
 import {
   createContext,
   FC,
@@ -10,6 +11,7 @@ import {
 } from "react";
 import {
   Animated,
+  BackHandler,
   Dimensions,
   PanResponder,
   Pressable,
@@ -102,6 +104,7 @@ export const Hub: FC<unknown> = () => {
   } = useHub();
   const primary = useMainColor("primary");
   const [touchStartPosition, setTouchStartPosition] = useState<number>();
+
   return (
     <>
       {isOpen && (
@@ -165,6 +168,26 @@ export const Hub: FC<unknown> = () => {
       </Animated.View>
     </>
   );
+};
+
+export const useHubBackHandler = () => {
+  const { closeHub, isOpen } = useHub();
+
+  const navigator = useNavigation();
+
+  useEffect(() => {
+    const handler = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (isOpen) {
+        closeHub();
+      } else {
+        navigator.goBack();
+        handler.remove();
+      }
+      return true;
+    });
+
+    return () => handler.remove();
+  }, [isOpen]);
 };
 
 export const ConfirmHubTemplate: FC<{

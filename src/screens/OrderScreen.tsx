@@ -27,11 +27,12 @@ export const OrderScreen: FC<ScreenNavigationProps> = ({ navigation }) => {
               foodChoice={fc}
               selected={fc.name === myOrder?.foodChoiceName}
               onPress={() => {
-                console.log("open");
                 openHub(
                   <ConfirmHubTemplate
-                    onConfirm={() => {
-                      makeOrder(fc);
+                    onConfirm={async () => {
+                      await makeOrder(fc);
+                      console.info("Order made, navigate home...");
+                      navigation.navigate(Screens.Home);
                       closeHub();
                     }}
                     onCancel={closeHub}
