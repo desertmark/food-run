@@ -16,7 +16,8 @@ const overrides: Partial<Theme> = {
       on: "#fff",
     },
     secondary: {
-      main: "#fae9e1",
+      // main: "#fae9e1",
+      main: "#fbd0d5",
       on: "000",
     },
     warning: {

@@ -92,20 +92,21 @@ export const OrdersProvider: FC<PropsWithChildren<unknown>> = ({
     );
   }, [orders, user?.id]);
 
-  const loadSchedule = useCallback(async () => {
+  const subscribeSchedule = useCallback(() => {
     try {
-      console.info("Loading schedule");
+      console.info("Subscribing to schedule...");
       const today = getWeekDay();
-      await schedule.load();
-      console.debug("Today is", today);
-      const isOrderDay = schedule.value[today];
-      console.debug("Schedule is", schedule.value);
-      isOrderDay
-        ? console.info("Today is an order day! 🥳 🥳")
-        : console.info("Today is not an order day 🙁 🙁");
-      setIsOrderDay(isOrderDay);
+      return schedule.onValue((schedule) => {
+        console.debug("Today is", today);
+        const isOrderDay = schedule[today];
+        console.debug("Schedule update", schedule);
+        isOrderDay
+          ? console.info("Today is an order day! 🥳 🥳")
+          : console.info("Today is not an order day 🙁 🙁");
+        setIsOrderDay(isOrderDay);
+      });
     } catch (error) {
-      console.error("Failed to load the schedule", error);
+      console.error("Failed to subscribe to schedule", error);
       throw error;
     }
   }, [schedule]);
@@ -129,8 +130,8 @@ export const OrdersProvider: FC<PropsWithChildren<unknown>> = ({
   }, [subscribeToOrders]);
 
   useEffect(() => {
-    loadSchedule();
-  }, [loadSchedule]);
+    return subscribeSchedule();
+  }, [subscribeSchedule]);
 
   useEffect(() => {
     return subscribeToOrderWindow();

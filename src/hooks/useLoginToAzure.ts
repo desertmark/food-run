@@ -40,10 +40,12 @@ export const useLoginToAzure = () => {
           tokenResponse,
           discovery
         )) as LoginToAzureResult;
-        return {
+        const loginResult = {
           ...userInfo,
           tokenResponse,
         };
+        console.log(loginResult);
+        return loginResult;
       case "error":
         throw result.error;
       default:

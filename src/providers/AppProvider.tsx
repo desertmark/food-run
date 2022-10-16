@@ -6,6 +6,7 @@ import {
   useContext,
   useState,
 } from "react";
+import { Animated } from "react-native";
 
 export interface AppState {
   globalLoading: boolean;
@@ -26,7 +27,6 @@ export const useApp = () => {
 export const AppProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const [globalLoading, setGlobalLoading] = useState<boolean>(true);
   const [statusBarStyle, setStatusBarStyle] = useState<StatusBarStyle>("dark");
-
   return (
     <AppContext.Provider
       value={{

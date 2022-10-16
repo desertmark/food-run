@@ -11,18 +11,21 @@ import { BackendProvider } from "./BackendProvider";
 import { AppProvider } from "./AppProvider";
 import { OrdersProvider } from "./OrdersProvider";
 import { theme } from "../config/Theme";
+import { HubProvider } from "../components/Hub";
 
 export const Providers: FC<PropsWithChildren<unknown>> = ({ children }) => (
   <ThemeProvider theme={theme}>
     <IconComponentProvider IconComponent={MaterialCommunityIcons as any}>
       <AppProvider>
-        <BackendProvider>
-          <FirebaseProvider>
-            <AuthProvider>
-              <PrivateProviders>{children}</PrivateProviders>
-            </AuthProvider>
-          </FirebaseProvider>
-        </BackendProvider>
+        <HubProvider>
+          <BackendProvider>
+            <FirebaseProvider>
+              <AuthProvider>
+                <PrivateProviders>{children}</PrivateProviders>
+              </AuthProvider>
+            </FirebaseProvider>
+          </BackendProvider>
+        </HubProvider>
       </AppProvider>
     </IconComponentProvider>
   </ThemeProvider>

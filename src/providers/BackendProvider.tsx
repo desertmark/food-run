@@ -31,8 +31,9 @@ export const BackendProvider: FC<PropsWithChildren<unknown>> = ({
       );
       return res.data;
     } catch (error) {
-      console.error("Failed backend.postToken", JSON.stringify({ error }));
-      throw error;
+      const res = error?.response?.data;
+      console.error("Failed backend.postToken", res);
+      throw res?.error ? new Error(res?.error) : error;
     }
   };
 
