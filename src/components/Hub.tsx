@@ -96,13 +96,12 @@ export const Hub: FC<unknown> = () => {
     viewHeight,
     viewWidth,
     openHeight,
-    closedHeight,
     template,
     isOpen,
     closeHub,
   } = useHub();
   const primary = useMainColor("primary");
-
+  const [touchStartPosition, setTouchStartPosition] = useState<number>();
   return (
     <>
       {isOpen && (
@@ -120,20 +119,11 @@ export const Hub: FC<unknown> = () => {
         ></Pressable>
       )}
       <Animated.View
-        onTouchMove={(e) => {
-          animation.setValue(e.nativeEvent.pageY);
-        }}
-        onTouchEnd={(e) => {
-          if (e.nativeEvent.pageY > viewHeight * 0.8) {
-            closeHub();
-          } else {
-            animation.setValue(openHeight);
-          }
-        }}
         style={{
           borderRadius: 20,
           position: "absolute",
           top: animation,
+          left: 0,
           height: viewHeight,
           width: viewWidth,
           opacity: 0.8,
@@ -141,22 +131,36 @@ export const Hub: FC<unknown> = () => {
           paddingVertical: 16,
         }}
       >
-        {/* <View
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          backgroundColor: "red",
-          width: viewWidth,
-        }}
-      >
         <View
-          style={{
-            height: 4,
-            width: 75,
-            backgroundColor: secondary,
+          onTouchStart={(e) => {
+            setTouchStartPosition(e.nativeEvent.pageY);
           }}
-        ></View>
-      </View> */}
+          onTouchMove={(e) => {
+            animation.setValue(e.nativeEvent.pageY);
+          }}
+          onTouchEnd={(e) => {
+            if (touchStartPosition < e.nativeEvent.pageY) {
+              closeHub();
+            } else {
+              animation.setValue(openHeight);
+            }
+          }}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            height: 50,
+          }}
+        >
+          <View
+            style={{
+              height: 4,
+              width: 75,
+              borderRadius: 50,
+              backgroundColor: useMainColor("secondary"),
+            }}
+          />
+        </View>
         {template}
       </Animated.View>
     </>
